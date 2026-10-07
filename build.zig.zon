@@ -1,0 +1,40 @@
+.{
+    .name = .lua_http,
+    .version = "0.16.0",
+    .dependencies = .{
+        .lua = .{
+            .url = "git+https://github.com/PegaFox/allyourcodebase-lua.git#9d12e6d06f80d90d5cb478b79fe086b9b1df042f",
+            .hash = "lua-5.4.7-zqrcysUiAACQA04jcT5JHRCbEGsI24cGqRbM_LPwDXWn",
+        },
+        .lpeg = .{
+            .url = "https://www.inf.puc-rio.br/~roberto/lpeg/lpeg-1.1.0.tar.gz",
+            .hash = "N-V-__8AAMnaAwCEutreuREG3QayBVEZqUTDQFY1Nsrv2OIt",
+        },
+        .lua_fifo = .{
+            .url = "git+https://github.com/daurnimator/fifo.lua.git#414b43e2a8d0ca136a1956c09c2fd43bfa1998a2",
+            .hash = "N-V-__8AAJYoAAAuHUR0vY4-ioBDc8zQ1NGufEMpXLboWt6S",
+        },
+        .lua_basexx = .{
+            .url = "git+https://github.com/aiq/basexx.git#b4ee13f6503499dc52c2d349a81826ee933db43c",
+            .hash = "N-V-__8AAM57AADm5hZzr2Oe7nPzrtbWy4iv0AZ70PIkOhwn",
+        },
+        .lua_lpeg_patterns = .{
+            .url = "git+https://github.com/daurnimator/lpeg_patterns.git#0da7cadb867858f8fdf2bfbfbc92a51a7c28c3d7",
+            .hash = "N-V-__8AALrnAQA2828z-71L5QUdJr6cPGAapZikN90rx6rL",
+        },
+        .lua_binary_heap = .{
+            .url = "git+https://github.com/Tieske/binaryheap.lua.git#5527c544c01d63497ed5cdfe209436a4a72bad0f",
+            .hash = "N-V-__8AAPEFAQCYYLXvTGXJzorUczzkD5aOVPpK8ikZ08U_",
+        },
+        .cqueues = .{
+            .url = "git+https://github.com/ryanprior/cqueues.git#0789aa94928779b6aed1b054ad847b8d46c5c99d",
+            .hash = "cqueues-0.16.0-uFLO6cDrFgAdfyvteHgYEKvlrj30T5yPElMMakYcH-OV",
+        },
+        .luaossl = .{
+            .url = "git+https://github.com/ryanprior/luaossl.git#5a0625d3a0513eaab436eccaeb9781c0ee3daf7d",
+            .hash = "luaossl-0.16.0-Uatb69fpEAD1Sl-RbT83FNRSV2Ya7kvmippCks-kRW_k",
+        },
+    },
+    .paths = .{""},
+    .fingerprint = 0x93e1c35a9ec95905,
+}
