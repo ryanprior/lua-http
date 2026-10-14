@@ -27,8 +27,8 @@
             .hash = "N-V-__8AAPEFAQCYYLXvTGXJzorUczzkD5aOVPpK8ikZ08U_",
         },
         .cqueues = .{
-            .url = "git+https://github.com/ryanprior/cqueues.git#0789aa94928779b6aed1b054ad847b8d46c5c99d",
-            .hash = "cqueues-0.16.0-uFLO6cDrFgAdfyvteHgYEKvlrj30T5yPElMMakYcH-OV",
+            .url = "git+https://github.com/ryanprior/cqueues.git#d7428c5d17e2defb0c04ad74d18be5d22a1d8c8a",
+            .hash = "cqueues-0.16.0-uFLO6fTrFgD_Z5fE7gcRxK3yjI_HhbrkP2eKlCqna_xT",
         },
         .luaossl = .{
             .url = "git+https://github.com/ryanprior/luaossl.git#5a0625d3a0513eaab436eccaeb9781c0ee3daf7d",
