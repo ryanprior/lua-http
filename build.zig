@@ -82,48 +82,40 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(lua_http_lib);
     b.installArtifact(lpeg_lib);
 
-    const install_fifo = b.addInstallFileWithDir(
-        fifo_dep.path("fifo.lua"),
-        .prefix,
-        "share/lua/5.4/fifo.lua",
+    const lua_scripts = b.addNamedWriteFiles("lua-http");
+    _ = lua_scripts.addCopyFile(fifo_dep.path("fifo.lua"), "fifo.lua");
+    _ = lua_scripts.addCopyFile(basexx_dep.path("lib/basexx.lua"), "basexx.lua");
+    _ = lua_scripts.addCopyDirectory(
+        lpeg_patterns_dep.path("lpeg_patterns"),
+        "lpeg_patterns",
+        .{},
     );
-    const install_basexx = b.addInstallFileWithDir(
-        basexx_dep.path("lib/basexx.lua"),
-        .prefix,
-        "share/lua/5.4/basexx.lua",
-    );
-    const install_lpeg_patterns = b.addInstallDirectory(.{
-        .source_dir = lpeg_patterns_dep.path("lpeg_patterns"),
-        .install_dir = .prefix,
-        .install_subdir = "share/lua/5.4/lpeg_patterns",
-    });
-    const install_binary_heap = b.addInstallFileWithDir(
+    _ = lua_scripts.addCopyFile(
         binary_heap_dep.path("src/binaryheap.lua"),
-        .prefix,
-        "share/lua/5.4/binaryheap.lua",
+        "binaryheap.lua",
     );
-    const install_cqueues = b.addInstallDirectory(.{
-        .source_dir = cqueues_dep.path("src"),
+    _ = lua_scripts.addCopyDirectory(
+        cqueues_dep.path("src"),
+        "cqueues",
+        .{ .include_extensions = &.{".lua"} },
+    );
+    _ = lua_scripts.addCopyFile(cqueues_dep.path("src/cqueues.lua"), "cqueues.lua");
+    _ = lua_scripts.addCopyDirectory(
+        luaossl_dep.path("src/openssl"),
+        "openssl",
+        .{ .include_extensions = &.{".lua"} },
+    );
+    _ = lua_scripts.addCopyFile(luaossl_dep.path("src/openssl.lua"), "openssl.lua");
+    _ = lua_scripts.addCopyDirectory(
+        b.path("http"),
+        "http",
+        .{ .include_extensions = &.{".lua"} },
+    );
+    const install_lua_scripts = b.addInstallDirectory(.{
+        .source_dir = lua_scripts.getDirectory(),
         .install_dir = .prefix,
-        .install_subdir = "share/lua/5.4/cqueues",
-        .include_extensions = &.{".lua"},
+        .install_subdir = "share/lua/5.4",
     });
-    const install_cqueues_lua = b.addInstallFileWithDir(
-        cqueues_dep.path("src/cqueues.lua"),
-        .prefix,
-        "share/lua/5.4/cqueues.lua",
-    );
-    const install_luaossl = b.addInstallDirectory(.{
-        .source_dir = luaossl_dep.path("src/openssl"),
-        .install_dir = .prefix,
-        .install_subdir = "share/lua/5.4/openssl",
-        .include_extensions = &.{".lua"},
-    });
-    const install_luaossl_lua = b.addInstallFileWithDir(
-        luaossl_dep.path("src/openssl.lua"),
-        .prefix,
-        "share/lua/5.4/openssl.lua",
-    );
     const lua_path = b.pathJoin(&.{
         b.install_path,
         "share/lua/5.4/?.lua",
@@ -131,14 +123,7 @@ pub fn build(b: *std.Build) void {
     const options = b.addOptions();
     options.addOption([]const u8, "lua_path", lua_path);
     exe.root_module.addOptions("build_options", options);
-    b.getInstallStep().dependOn(&install_fifo.step);
-    b.getInstallStep().dependOn(&install_basexx.step);
-    b.getInstallStep().dependOn(&install_lpeg_patterns.step);
-    b.getInstallStep().dependOn(&install_binary_heap.step);
-    b.getInstallStep().dependOn(&install_cqueues.step);
-    b.getInstallStep().dependOn(&install_cqueues_lua.step);
-    b.getInstallStep().dependOn(&install_luaossl.step);
-    b.getInstallStep().dependOn(&install_luaossl_lua.step);
+    b.getInstallStep().dependOn(&install_lua_scripts.step);
 
     const run_step = b.step("run", "Run the app");
     const run_cmd = b.addRunArtifact(exe);
